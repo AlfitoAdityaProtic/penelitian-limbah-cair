@@ -7,7 +7,8 @@ class database
     private $password = "akmal123";
     private $database = "iot";
     protected $koneksi;
-    // baca id tertinggi
+    
+    // Membuat koneksi
     public function __construct()
     {
         $this->koneksi = new mysqli($this->host, $this->user, $this->password, $this->database);
@@ -23,13 +24,13 @@ class database
         $ID_Awal = $ID_Akhir - 4;
         return [$ID_Awal, $ID_Akhir];
     }
-    // ini sumbu x nya
-    public function waktu()
-    {
+
+    // Fungsi untuk waktu
+    public function waktu() {
         list($ID_Awal, $ID_Akhir) = $this->getIDRange();
         $waktu = "SELECT `time` FROM iot WHERE ID>='$ID_Awal' AND ID<='$ID_Akhir' ORDER BY id ASC";
-        $output = $this->koneksi->query(query: $waktu);
-        return $output->fetch_all(mode: MYSQLI_ASSOC);
+        $output = $this->koneksi->query($waktu);
+        return $output->fetch_all(MYSQLI_ASSOC);
     }
 
     public function dataTerakhir()
@@ -45,18 +46,20 @@ class database
     {
         list($ID_Awal, $ID_Akhir) = $this->getIDRange();
         $tds = "SELECT tds FROM iot WHERE ID>='$ID_Awal' AND ID<='$ID_Akhir' ORDER BY id ASC";
-        $output = $this->koneksi->query(query: $tds);
-        return $output->fetch_all(mode: MYSQLI_ASSOC);
+        $output = $this->koneksi->query($tds);
+        return $output->fetch_all(MYSQLI_ASSOC);
     }
-    public function ph()
-    {
+
+    // Fungsi untuk PH
+    public function ph() {
         list($ID_Awal, $ID_Akhir) = $this->getIDRange();
         $ph = "SELECT ph FROM iot WHERE ID>='$ID_Awal' AND ID<='$ID_Akhir' ORDER BY id ASC";
-        $output = $this->koneksi->query(query: $ph);
-        return $output->fetch_all(mode: MYSQLI_ASSOC);
+        $output = $this->koneksi->query($ph);
+        return $output->fetch_all(MYSQLI_ASSOC);
     }
-    public function warna()
-    {
+
+    // Fungsi untuk Warna
+    public function warna() {
         list($ID_Awal, $ID_Akhir) = $this->getIDRange();
         $warna = "SELECT color FROM iot WHERE ID>='$ID_Awal' AND ID<='$ID_Akhir' ORDER BY id ASC";
         $output = $this->koneksi->query($warna);
@@ -70,6 +73,7 @@ class database
         $this->koneksi->close();
     }
 }
+
 $db = new database();
 $waktu = $db->waktu();
 $tds = $db->tds();
