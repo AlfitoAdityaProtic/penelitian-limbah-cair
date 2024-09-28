@@ -10,18 +10,18 @@ class database
     // baca id tertinggi
     public function __construct()
     {
-        $this->koneksi = new mysqli( $this->host, $this->user, $this->password, $this->database);
+        $this->koneksi = new mysqli($this->host, $this->user, $this->password, $this->database);
         if ($this->koneksi->connect_error) {
             die("Koneksi gagal: " . $this->koneksi->connect_error);
         }
     }
-    public function getIDRange(): array{
+    public function getIDRange(): array
+    {
         $sql_ID = $this->koneksi->query(query: "SELECT MAX(id) FROM iot");
         $data_Id = mysqli_fetch_array(result: $sql_ID);
         $ID_Akhir = $data_Id['MAX(id)'];
         $ID_Awal = $ID_Akhir - 4;
         return [$ID_Awal, $ID_Akhir];
-
     }
     // ini sumbu x nya
     public function waktu()
@@ -30,6 +30,15 @@ class database
         $waktu = "SELECT `time` FROM iot WHERE ID>='$ID_Awal' AND ID<='$ID_Akhir' ORDER BY id ASC";
         $output = $this->koneksi->query(query: $waktu);
         return $output->fetch_all(mode: MYSQLI_ASSOC);
+    }
+
+    public function dataTerakhir()
+    {
+        $tdsTerakhir = $this->koneksi->query("SELECT tds FROM iot ORDER BY id DESC LIMIT 1")->fetch_assoc()['tds'];
+        $phTerakhir = $this->koneksi->query("SELECT ph FROM iot ORDER BY id DESC LIMIT 1")->fetch_assoc()['ph'];
+        $warnaTerakhir = $this->koneksi->query("SELECT color FROM iot ORDER BY id DESC LIMIT 1")->fetch_assoc()['color'];
+
+        return [$tdsTerakhir, $phTerakhir, $warnaTerakhir];
     }
     // ini sumbu y nya tds
     public function tds()
@@ -53,7 +62,11 @@ class database
         $output = $this->koneksi->query($warna);
         return $output->fetch_all(MYSQLI_ASSOC);
     }
-    public function __destruct(){
+    // Tambahkan fungsi untuk mendapatkan nilai terakhir
+
+
+    public function __destruct()
+    {
         $this->koneksi->close();
     }
 }
@@ -62,147 +75,255 @@ $waktu = $db->waktu();
 $tds = $db->tds();
 $ph = $db->ph();
 $warna = $db->warna();
+list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
 ?>
 
 <body>
-    <!-- tampilan grafik TDS-->
-    <div class="panel panel-primary">
-        <div class ="panel-heading">
-            Grafik TDS (Total Dissolved Solids)
+    <!-- Sidebar kosong, nanti kamu bisa tambahkan konten sidebar di sini -->
+    <aside class="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] text-center bg-blue-500">
+        <!-- sidebar start -->
+        <div class="text-white-100 text-xl mt-7">
+            <a href="#">
+                <div class="p-2.5 mt-1 flex items-center">
+                    <img src="assets/img/water-icon.gif" alt="" class="h-8 w-8 rounded-full">
+                    <h1 class="font-bold text-white text-[15px] ml-3">SI | Monitoring Air </h1>
+                </div>
+            </a>
+            <hr class="mt-3 mb-3">
+
+            <!-- fitur search start -->
+
+            <form class="max-w-md mx-auto">
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search...." required />
+                    <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                </div>
+            </form>
+
+            <!-- fitur search end -->
+
+            <!-- dashboard start-->
+            <a href="dashboard.php">
+                <div class="p-2.5 mt-3 flex rounded-md px-4 duration-30
+                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
+                    <img src="assets/img/home.png" alt="homepage" class="h-5 w-5 mb-1 ml-4">
+                    <span class="ml-7 text-xl -mt-1">Dashboard</span>
+                </div>
+            </a>
+            <!-- dashboard end -->
+
+            <!-- line chart start -->
+            <a href="lihat-user.php">
+                <div class="p-2.5 mt-3 flex rounded-md px-4 duration-30
+                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
+                    <img src="assets/img/bar-chart.png" alt="user" class="h-5 w-5 mb-1 ml-4">
+                    <span class="ml-7 text-xl -mt-1">Line-Chart</span>
+                </div>
+            </a>
+            <!-- line chart end -->
+
+            <!-- pie chart start -->
+            <a href="user.php">
+                <div class="p-2.5 mt-3 flex rounded-md px-4 duration-30
+                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
+                    <img src="assets/img/analytics.png" alt="tambah user" class="h-5 w-5 mb-1 ml-4">
+                    <span class="ml-7 text-xl -mt-1">Pie Chart</span>
+                </div>
+            </a>
+            <!-- pie chart end -->
+
+            <!-- data start -->
+            <a href="monitoring.php">
+                <div class="p-2.5 mt-3 flex rounded-md px-4 duration-30
+                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
+                    <img src="assets/img/contract.png" alt="monitoring" class="h-5 w-5 mb-1 ml-4">
+                    <span class="ml-7 text-xl -mt-1">Data</span>
+                </div>
+            </a>
+            <!-- data end -->
+
+            <!-- data start -->
+            <a href="monitoring.php">
+                <div class="p-2.5 mt-3 flex rounded-md px-4 duration-30
+                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
+                    <img src="assets/img/setting.png" alt="monitoring" class="h-5 w-5 mb-1 ml-4">
+                    <span class="ml-7 text-xl -mt-1">Setting</span>
+                </div>
+            </a>
+            <!-- data end -->
+
+            <hr class="mb-3 mt-3">
+
+            <!-- logout start -->
+            <a href="login.php">
+                <div class="">
+                    <div class="p-2.5 mt-64 flex rounded-md px-4 duration-30
+                            cursor pointer text-white hover:bg-white hover:text-red-700 hover:text-strong shadow-lg">
+                        <img src="assets/img/logout.png" alt="tombol logout" class="h-5 w-5 mb-1 ml-4">
+                        <span class="ml-7 text-xl -mt-1">Logout</span>
+                    </div>
+                </div>
+
+            </a>
+            <!-- logout end -->
         </div>
+        <!-- sidebar end -->
+    </aside>
 
-        <div class="panel-body">
-            <!-- canvas untuk grafik -->
+    <div class="flex flex-col mt-5 items-center">
+        <!-- Card start -->
+        <div class="flex flex-row ">
+            <!-- Card TDS -->
+            <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">TDS</h5>
+                <p class="font-normal text-gray-700 dark:text-gray-400">
+                    <?php echo $tdsTerakhir; ?> ppa
+                </p>
+            </div>
+            <!-- Card PH -->
+            <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">PH Air</h5>
+                <p class="font-normal text-gray-700 dark:text-gray-400"><?php echo $phTerakhir; ?></p>
+            </div>
+            <!-- Card Warna -->
+            <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Warna</h5>
+                <p class="font-normal text-gray-700 dark:text-gray-400"><?php echo $warnaTerakhir; ?></p>
+            </div>
+        </div>
+    </div>
 
-             <canvas id="mychart"></canvas>
-
-             <!-- gambar grafik -->
-              <script type="text/javascript">
-                // baca id canvas tempat grafik akan di letakan
-                var canvas = document.getElementById('mychart');
-                // letakan data tanggal dan tds untuk grafik
-                var tds = {
-                    labels : [
-                        <?php 
-                            // while($data_tanggal = mysqli_fetch_array($tanggal)){
-                            //     echo '"' . $data_tanggal['tanggal'] . '",';
-                            // }
-                            foreach($waktu as $data_waktu){
-                                echo '"' . $data_waktu['time'] . '",';
+    <div class="flex flex-col mt-3 items-center">
+        <!-- Container untuk Grafik -->
+        <div class="flex justify-center gap-5 w-full">
+            <!-- Grafik TDS -->
+            <div class="panel panel-primary m-5 w-[500px]">
+                <div class="panel-heading">
+                    Grafik TDS (Total Dissolved Solids)
+                </div>
+                <div class="panel-body">
+                    <canvas id="mychart" width="500" height="250"></canvas>
+                    <script type="text/javascript">
+                        var canvas = document.getElementById('mychart');
+                        var tds = {
+                            labels: [
+                                <?php
+                                foreach ($waktu as $data_waktu) {
+                                    echo '"' . $data_waktu['time'] . '",';
+                                }
+                                ?>
+                            ],
+                            datasets: [{
+                                label: "TDS",
+                                fill: true,
+                                backgroundColor: "rgba(153,109,74,1)",
+                                borderColor: "rgba(75,192,192,1)",
+                                lineTension: 0.5,
+                                pointRadius: 3,
+                                data: [
+                                    <?php
+                                    foreach ($tds as $data_tds) {
+                                        echo '"' . $data_tds['tds'] . '",';
+                                    }
+                                    ?>
+                                ],
+                            }]
+                        };
+                        var option = {
+                            showLines: true,
+                            animation: {
+                                duration: 0
                             }
-                        ?>
-                    ],
-                    datasets : [
-                    {
-                        label : "TDS",
-                        fill: true,
-                        backgroundColor: "rgba(153,109,74,1)",
-                        borderColor: "rgba(75,192,192,1)",
-                        lineTension: 0.5,
-                        pointRadius: 3,
-                        data : [
-                            <?php
-                            foreach($tds as $data_tds){
-                                echo '"' . $data_tds['tds'] . '",';
+                        };
+                        var mychart = new Chart(canvas, {
+                            type: 'line',
+                            data: tds,
+                            options: option
+                        });
+                    </script>
+                </div>
+            </div>
+
+            <!-- Grafik PH -->
+            <div class="panel panel-danger m-5 w-[500px]">
+                <div class="panel-heading">
+                    Grafik PH AIR
+                </div>
+                <div class="panel-body">
+                    <canvas id="mychart2" width="500" height="250"></canvas>
+                    <script type="text/javascript">
+                        var canvas = document.getElementById('mychart2');
+                        var ph = {
+                            labels: [
+                                <?php
+                                foreach ($waktu as $data_waktu) {
+                                    echo '"' . $data_waktu['time'] . '",';
+                                }
+                                ?>
+                            ],
+                            datasets: [{
+                                label: "pH",
+                                fill: true,
+                                backgroundColor: "rgba(253,1,17,1)",
+                                borderColor: "rgba(75,192,192,1)",
+                                lineTension: 0.5,
+                                pointRadius: 3,
+                                data: [
+                                    <?php
+                                    foreach ($ph as $data_ph) {
+                                        echo '"' . $data_ph['ph'] . '",';
+                                    }
+                                    ?>
+                                ],
+                            }]
+                        };
+                        var option = {
+                            showLines: true,
+                            animation: {
+                                duration: 0
                             }
-                            ?>
-                        ],
-                    }
-                ]
-                }
-                // option grafik 
-                var option = {
-                    showLines : true,
-                    animation : {
-                        duration : 0
-                    }
-                };
-                // cetak grafik kedalam canvas
-                var mychart = new Chart(canvas, {
-                    type: 'line',
-                    data : tds,
-                    options : option
-                });
-              </script>
+                        };
+                        var mychart = new Chart(canvas, {
+                            type: 'line',
+                            data: ph,
+                            options: option
+                        });
+                    </script>
+                </div>
+            </div>
         </div>
     </div>
 
-
-<!-- TAMPILAN GRAFIK PH AIR -->
-    <div class="panel panel-danger">
-        <div class ="panel-heading">
-            Grafik PH AIR
-        </div>
-
-        <div class="panel-body">
-            <!-- canvas untuk grafik -->
-
-             <canvas id="mychart2"></canvas>
-
-             <!-- gambar grafik -->
-              <script type="text/javascript">
-                // baca id canvas tempat grafik akan di letakan
-                var canvas = document.getElementById('mychart2');
-                // letakan data tanggal dan tds untuk grafik
-                var ph = {
-                    labels : [
-                        <?php 
-                            foreach($waktu as $data_waktu){
-                                echo '"' . $data_waktu['time'] . '",';
-                            }
-                        ?>
-                    ],
-                    datasets : [
-                    {
-                        label : "ph",
-                        fill: true,
-                        backgroundColor: "rgba(253,1,17,1)",
-                        borderColor: "rgba(75,192,192,1)",
-                        lineTension: 0.5,
-                        pointRadius: 3,
-                        data : [
-                            <?php
-                            foreach($ph as $data_ph){
-                                echo '"' . $data_ph['ph'] . '",';
-                            }
-                            ?>
-                        ],
-                    },
-                
-                ]
-                }
-                // option grafik 
-                var option = {
-                    showLines : true,
-                    animation : {
-                        duration : 0
-                    }
-                };
-                // cetak grafik kedalam canvas
-                var mychart = new Chart(canvas, {
-                    type: 'line',
-                    data : ph,
-                    options : option
-                });
-              </script>
-        </div>
-    </div>
     <!-- Tampilan warna -->
     <div class="panel panel-warning">
-    <div class="panel-heading">
-        Warna Air
+        <div class="panel-heading">
+            Warna Air
+        </div>
+        <div class="panel-body">
+            <ul>
+                <?php
+                foreach ($warna as $data_warna) {
+                    $hexColor = htmlspecialchars($data_warna['color']);
+                    // pake kondisi buat nambahin # karena akmal ga masukin ke database # nya 
+                    if (strpos($hexColor, '#') !== 0) {
+                        $hexColor = '#' . $hexColor;
+                    }
+                    echo "<li style='list-style:none;'>
+                        <div style='width: 100px; height: 25px; background-color: $hexColor; border: 1px solid #000;'>
+                        </div>
+                        <span>$hexColor</span> <!-- Menampilkan kode warna untuk referensi -->
+                      </li>";
+                }
+                ?>
+            </ul>
+        </div>
     </div>
-    <div class="panel-body">
-        <ul>
-            <?php
-            foreach ($warna as $data_warna) {
-                echo "<li>" . htmlspecialchars($data_warna['color']) . "</li>";
-            }
-            ?>
-        </ul>
-    </div>
-</div>
-
-
 </body>
+
 </html>

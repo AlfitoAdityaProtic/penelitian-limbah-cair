@@ -10,7 +10,7 @@
 </head>
 
 <body class="font-mono">
-<aside class="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] text-center bg-blue-500 sm:hidden">
+<aside class="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] text-center bg-blue-500">
             <!-- sidebar start -->
             <div class="text-white-100 text-xl mt-7">
                 <a href="#">
