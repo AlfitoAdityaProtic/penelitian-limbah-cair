@@ -84,7 +84,7 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
 
 <body>
     <!-- Sidebar kosong, nanti kamu bisa tambahkan konten sidebar di sini -->
-    <aside class="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] text-center bg-blue-500">
+    <aside class="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[200px] text-center bg-blue-500">
         <!-- sidebar start -->
         <div class="text-white-100 text-xl mt-7">
             <a href="#">
