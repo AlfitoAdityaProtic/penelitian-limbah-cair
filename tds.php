@@ -329,5 +329,4 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
         </div>
     </div>
 </body>
-
 </html>
