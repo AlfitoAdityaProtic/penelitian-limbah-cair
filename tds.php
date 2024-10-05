@@ -86,10 +86,11 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
 ?>
 
 <body>
-    <div class="container mt-26 text-center">
-        <h3>Grafik TDS</h3>
-        <p>(Data yang ditampilkan adalah 5 data terakhir)</p>
-    </div>
+    <!-- <div class="flex container justify-end items-end mt-4 pr-4"></div> -->
+        <h2 class="mt-5 justify-end items-end text-3xl font-bold text-gray-800 border-b-2 border-yellow-500 pb-2 mb-4">
+            Laman Dashboard Monitoring Limbah Cair
+        </h2>
+    
     <div class="flex flex-col items-center">
         <!-- Card start -->
         <div class="flex flex-row md:flex-row">
@@ -117,7 +118,7 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
         <!-- Container untuk Grafik -->
         <div class="flex flex-col items-center md:flex-row justify-center gap-5 w-full">
             <!-- Grafik TDS -->
-            <div class="panel panel-primary m-5 w-[500px]">
+            <div class="panel panel-primary m-5 w-[500px] shadow-lg">
                 <div class="panel-heading font-custom">
                     Grafik TDS (Total Dissolved Solids)
                 </div>
@@ -170,8 +171,8 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
             </div>
 
             <!-- Grafik PH -->
-            <div class="panel panel-danger m-5 w-[500px]">
-                <div class="panel-heading">
+            <div class="panel panel-danger m-5 w-[500px] shadow-lg">
+                <div class="panel-heading font-custom">
                     Grafik PH AIR
                 </div>
                 <div class="panel-body">
@@ -222,16 +223,15 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
     </div>
 
     <!-- Tampilan warna -->
-    <div class="panel panel-warning bg-yellow-100 shadow-lg rounded-lg">
-        <div class="panel-heading p-4 text-xl font-bold border-b border-yellow-300">
+    <div class="panel panel-warning shadow-lg rounded-lg">
+        <div class="panel-heading p-4 text-xl font-bold border-b border-yellow-300 font-custom">
             Warna Air
         </div>
         <div class="panel-body p-4">
             <ul class="space-y-3">
                 <?php
                 foreach ($warna as $data_warna) {
-                    $hexColor = htmlspecialchars($data_warna['color']);
-                    // pake kondisi buat nambahin # karena akmal ga masukin ke database # nya 
+                    $hexColor = htmlspecialchars($data_warna['color']); 
                     if (strpos($hexColor, '#') !== 0) {
                         $hexColor = '#' . $hexColor;
                     }
