@@ -20,7 +20,7 @@
     <title>Grafik Sensor</title>
 </head>
 
-<body>
+<body class="font-custom">
     <!-- sidebar start -->
     <div x-data="setup()" x-init="$refs.loading.classList.add('hidden');">
         <div class="flex h-screen antialiased text-gray-900 dark:bg-dark dark:text-light">

@@ -118,7 +118,7 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
         <div class="flex flex-col items-center md:flex-row justify-center gap-5 w-full">
             <!-- Grafik TDS -->
             <div class="panel panel-primary m-5 w-[500px]">
-                <div class="panel-heading">
+                <div class="panel-heading font-custom">
                     Grafik TDS (Total Dissolved Solids)
                 </div>
                 <div class="panel-body">

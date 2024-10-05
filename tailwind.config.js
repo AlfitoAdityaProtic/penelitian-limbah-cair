@@ -5,6 +5,9 @@ module.exports = {
     extend: {
       height : {
         '23': '88px'
+      },
+      fontFamily: {
+        custom: ['Poppins', 'sans-serif']
       }
     },
   },
