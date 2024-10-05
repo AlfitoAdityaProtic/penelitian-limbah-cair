@@ -86,169 +86,165 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
 ?>
 
 <body>
-    <div>
-        <div class="container mt-10 text-center">
-            <h3>Grafik TDS</h3>
-            <p>(Data yang ditampilkan adalah 5 data terakhir)</p>
-        </div>
-        <div class="flex flex-col items-center">
-            <!-- Card start -->
-            <div class="flex flex-row ">
-                <!-- Card TDS -->
-                <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">TDS</h5>
-                    <p class="font-normal text-gray-700 dark:text-gray-400">
-                        <?php echo $tdsTerakhir; ?> ppa
-                    </p>
-                </div>
-                <!-- Card PH -->
-                <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">PH Air</h5>
-                    <p class="font-normal text-gray-700 dark:text-gray-400"><?php echo $phTerakhir; ?></p>
-                </div>
-                <!-- Card Warna -->
-                <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Warna</h5>
-                    <p class="font-normal text-gray-700 dark:text-gray-400"><?php echo $warnaTerakhir; ?></p>
-                </div>
+    <div class="container mt-26 text-center">
+        <h3>Grafik TDS</h3>
+        <p>(Data yang ditampilkan adalah 5 data terakhir)</p>
+    </div>
+    <div class="flex flex-col items-center">
+        <!-- Card start -->
+        <div class="flex flex-row md:flex-row">
+            <!-- Card TDS -->
+            <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">TDS</h5>
+                <p class="font-normal text-gray-700 dark:text-gray-400">
+                    <?php echo $tdsTerakhir; ?> ppa
+                </p>
             </div>
-        </div>
-
-        <div class="flex flex-col items-center">
-            <!-- Container untuk Grafik -->
-            <div class="flex justify-center gap-5 w-full">
-                <!-- Grafik TDS -->
-                <div class="panel panel-primary m-5 w-[500px]">
-                    <div class="panel-heading">
-                        Grafik TDS (Total Dissolved Solids)
-                    </div>
-                    <div class="panel-body">
-                        <canvas id="mychart" width="500" height="250"></canvas>
-                        <script type="text/javascript">
-                            var canvas = document.getElementById('mychart');
-                            var tds = {
-                                labels: [
-                                    <?php
-                                    foreach ($waktu as $data_waktu) {
-                                        echo '"' . $data_waktu['time'] . '",';
-                                    }
-                                    ?>
-                                ],
-                                datasets: [{
-                                    label: "TDS",
-                                    fill: true,
-                                    backgroundColor: "rgba(153,109,74,0.2)",
-                                    borderColor: "rgba(75,192,192,1)",
-                                    lineTension: 0.5,
-                                    pointRadius: 5,
-                                    pointHoverRadius: 7,
-                                    borderWidth: 2,
-                                    data: [
-                                        <?php
-                                        foreach ($tds as $data_tds) {
-                                            echo '"' . $data_tds['tds'] . '",';
-                                        }
-                                        ?>
-                                    ],
-                                }]
-                            };
-                            var option = {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                showLines: true,
-                                animation: {
-                                    duration: 0,
-                                    easing: ''
-                                }
-                            };
-
-                            var mychart = new Chart(canvas, {
-                                type: 'line',
-                                data: tds,
-                                options: option
-                            });
-                        </script>
-                    </div>
-                </div>
-
-                <!-- Grafik PH -->
-                <div class="panel panel-danger m-5 w-[500px]">
-                    <div class="panel-heading">
-                        Grafik PH AIR
-                    </div>
-                    <div class="panel-body">
-                        <canvas id="mychart2" width="500" height="250"></canvas>
-                        <script type="text/javascript">
-                            var canvas = document.getElementById('mychart2');
-                            var ph = {
-                                labels: [
-                                    <?php
-                                    foreach ($waktu as $data_waktu) {
-                                        echo '"' . $data_waktu['time'] . '",';
-                                    }
-                                    ?>
-                                ],
-                                datasets: [{
-                                    label: "ph",
-                                    fill: true,
-                                    backgroundColor: "rgba(253,1,17,0.2)",
-                                    borderColor: "rgba(253,1,17,1)",
-                                    lineTension: 0.5,
-                                    pointRadius: 5,
-                                    pointHoverRadius: 7,
-                                    borderWidth: 2,
-                                    data: [
-                                        <?php
-                                        foreach ($ph as $data_ph) {
-                                            echo '"' . $data_ph['ph'] . '",';
-                                        }
-                                        ?>
-                                    ],
-                                }]
-                            };
-                            var option = {
-                                showLines: true,
-                                animation: {
-                                    duration: 0
-                                }
-                            };
-                            var mychart = new Chart(canvas, {
-                                type: 'line',
-                                data: ph,
-                                options: option
-                            });
-                        </script>
-                    </div>
-                </div>
+            <!-- Card PH -->
+            <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">PH Air</h5>
+                <p class="font-normal text-gray-700 dark:text-gray-400"><?php echo $phTerakhir; ?></p>
             </div>
-        </div>
-
-        <!-- Tampilan warna -->
-        <div class="panel panel-warning">
-            <div class="panel-heading">
-                Warna Air
-            </div>
-            <div class="panel-body">
-                <ul>
-                    <?php
-                    foreach ($warna as $data_warna) {
-                        $hexColor = htmlspecialchars($data_warna['color']);
-                        // pake kondisi buat nambahin # karena akmal ga masukin ke database # nya 
-                        if (strpos($hexColor, '#') !== 0) {
-                            $hexColor = '#' . $hexColor;
-                        }
-                        echo "<li style='list-style:none;'>
-                        <div style='width: 100px; height: 25px; background-color: $hexColor; border: 1px solid #000;'>
-                        </div>
-                        <span>$hexColor</span> <!-- Menampilkan kode warna untuk referensi -->
-                      </li>";
-                    }
-                    ?>
-                </ul>
+            <!-- Card Warna -->
+            <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Warna</h5>
+                <p class="font-normal text-gray-700 dark:text-gray-400"><?php echo $warnaTerakhir; ?></p>
             </div>
         </div>
     </div>
 
+    <div class="flex flex-col items-center">
+        <!-- Container untuk Grafik -->
+        <div class="flex flex-col items-center md:flex-row justify-center gap-5 w-full">
+            <!-- Grafik TDS -->
+            <div class="panel panel-primary m-5 w-[500px]">
+                <div class="panel-heading">
+                    Grafik TDS (Total Dissolved Solids)
+                </div>
+                <div class="panel-body">
+                    <canvas id="mychart" width="500" height="250"></canvas>
+                    <script type="text/javascript">
+                        var canvas = document.getElementById('mychart');
+                        var tds = {
+                            labels: [
+                                <?php
+                                foreach ($waktu as $data_waktu) {
+                                    echo '"' . $data_waktu['time'] . '",';
+                                }
+                                ?>
+                            ],
+                            datasets: [{
+                                label: "TDS",
+                                fill: true,
+                                backgroundColor: "rgba(153,109,74,0.2)",
+                                borderColor: "rgba(75,192,192,1)",
+                                lineTension: 0.5,
+                                pointRadius: 5,
+                                pointHoverRadius: 7,
+                                borderWidth: 2,
+                                data: [
+                                    <?php
+                                    foreach ($tds as $data_tds) {
+                                        echo '"' . $data_tds['tds'] . '",';
+                                    }
+                                    ?>
+                                ],
+                            }]
+                        };
+                        var option = {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            showLines: true,
+                            animation: {
+                                duration: 0
+                            }
+                        };
+
+                        var mychart = new Chart(canvas, {
+                            type: 'line',
+                            data: tds,
+                            options: option
+                        });
+                    </script>
+                </div>
+            </div>
+
+            <!-- Grafik PH -->
+            <div class="panel panel-danger m-5 w-[500px]">
+                <div class="panel-heading">
+                    Grafik PH AIR
+                </div>
+                <div class="panel-body">
+                    <canvas id="mychart2" width="500" height="250"></canvas>
+                    <script type="text/javascript">
+                        var canvas = document.getElementById('mychart2');
+                        var ph = {
+                            labels: [
+                                <?php
+                                foreach ($waktu as $data_waktu) {
+                                    echo '"' . $data_waktu['time'] . '",';
+                                }
+                                ?>
+                            ],
+                            datasets: [{
+                                label: "ph",
+                                fill: true,
+                                backgroundColor: "rgba(253,1,17,0.2)",
+                                borderColor: "rgba(253,1,17,1)",
+                                lineTension: 0.5,
+                                pointRadius: 5,
+                                pointHoverRadius: 7,
+                                borderWidth: 2,
+                                data: [
+                                    <?php
+                                    foreach ($ph as $data_ph) {
+                                        echo '"' . $data_ph['ph'] . '",';
+                                    }
+                                    ?>
+                                ],
+                            }]
+                        };
+                        var option = {
+                            showLines: true,
+                            animation: {
+                                duration: 0
+                            }
+                        };
+                        var mychart = new Chart(canvas, {
+                            type: 'line',
+                            data: ph,
+                            options: option
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tampilan warna -->
+    <div class="panel panel-warning bg-yellow-100 shadow-lg rounded-lg">
+        <div class="panel-heading p-4 text-xl font-bold border-b border-yellow-300">
+            Warna Air
+        </div>
+        <div class="panel-body p-4">
+            <ul class="space-y-3">
+                <?php
+                foreach ($warna as $data_warna) {
+                    $hexColor = htmlspecialchars($data_warna['color']);
+                    // pake kondisi buat nambahin # karena akmal ga masukin ke database # nya 
+                    if (strpos($hexColor, '#') !== 0) {
+                        $hexColor = '#' . $hexColor;
+                    }
+                    echo "<li style='list-style:none;' class='flex items-center justify-center gap-5 ml-10'>
+                        <div class='flex items-center' style='width: 100px; height: 25px;  background-color: $hexColor; border: 1px solid #000;'>
+                        </div>
+                        <span class='font-medium text-sm'>$hexColor</span> <!-- Menampilkan kode warna untuk referensi -->
+                      </li>";
+                }
+                ?>
+            </ul>
+        </div>
+    </div>
 </body>
 
 </html>

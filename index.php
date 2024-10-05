@@ -23,7 +23,7 @@
 <body>
     <!-- sidebar start -->
     <div x-data="setup()" x-init="$refs.loading.classList.add('hidden');">
-        <div class="flex h-screen antialiased text-gray-900 bg-gray-100 dark:bg-dark dark:text-light">
+        <div class="flex h-screen antialiased text-gray-900 dark:bg-dark dark:text-light">
             <!-- Loading screen -->
             <div
                 x-ref="loading"
@@ -45,7 +45,6 @@
                 <svg
                     class="absolute inset-0 w-full h-full text-white"
                     style="filter: drop-shadow(10px 0 10px #00000030)"
-                    width="600px"
                     preserveAspectRatio="none"
                     viewBox="0 0 309 800"
                     fill="currentColor"
@@ -82,8 +81,8 @@
                     <nav class="flex flex-col flex-1 w-80 p-4 mt-4">
                         <a href="index.php" class="flex items-center space-x-2 mt-5 pt-2 duration-30
                             cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
-                                <img src="assets/img/home.png" alt="homepage" class="h-5 w-5 mb-1 ml-4">
-                                <span class="ml-7 text-xl -mt-1">Dashboard</span>
+                            <img src="assets/img/home.png" alt="homepage" class="h-5 w-5 mb-1 ml-4">
+                            <span class="ml-7 text-xl -mt-1">Dashboard</span>
                         </a>
                         <a href="#" class="flex items-center space-x-2 mt-5  duration-30
                             cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
@@ -125,7 +124,8 @@
                 </button>
 
                 <!-- Grafik TDS -->
-                <div class="container w-1/3 text-center mt-5" id="responsecontainer">
+                
+                <div class="container w-1/3 h-full text-center mt-5" id="responsecontainer">
                     <!-- Grafik data dari tds.php akan dimuat di sini -->
                 </div>
 
