@@ -133,10 +133,12 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
                                 datasets: [{
                                     label: "TDS",
                                     fill: true,
-                                    backgroundColor: "rgba(153,109,74,1)",
+                                    backgroundColor: "rgba(153,109,74,0.2)",
                                     borderColor: "rgba(75,192,192,1)",
                                     lineTension: 0.5,
-                                    pointRadius: 3,
+                                    pointRadius: 5,
+                                    pointHoverRadius: 7,
+                                    borderWidth: 2,
                                     data: [
                                         <?php
                                         foreach ($tds as $data_tds) {
@@ -147,11 +149,15 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
                                 }]
                             };
                             var option = {
+                                responsive: true,
+                                maintainAspectRatio: false,
                                 showLines: true,
                                 animation: {
-                                    duration: 0
+                                    duration: 0,
+                                    easing: ''
                                 }
                             };
+                            
                             var mychart = new Chart(canvas, {
                                 type: 'line',
                                 data: tds,
@@ -179,12 +185,14 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
                                     ?>
                                 ],
                                 datasets: [{
-                                    label: "pH",
+                                    label: "ph",
                                     fill: true,
-                                    backgroundColor: "rgba(253,1,17,1)",
-                                    borderColor: "rgba(75,192,192,1)",
+                                    backgroundColor: "rgba(253,1,17,0.2)",
+                                    borderColor: "rgba(253,1,17,1)",
                                     lineTension: 0.5,
-                                    pointRadius: 3,
+                                    pointRadius: 5,
+                                    pointHoverRadius: 7,
+                                    borderWidth: 2,
                                     data: [
                                         <?php
                                         foreach ($ph as $data_ph) {
