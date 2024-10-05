@@ -238,7 +238,7 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
                     echo "<li style='list-style:none;' class='flex items-center justify-center gap-5 ml-10'>
                         <div class='flex items-center' style='width: 100px; height: 25px;  background-color: $hexColor; border: 1px solid #000;'>
                         </div>
-                        <span class='font-medium text-sm'>$hexColor</span> <!-- Menampilkan kode warna untuk referensi -->
+                        <span class='font-medium text-md'>$hexColor</span> <!-- Menampilkan kode warna untuk referensi -->
                       </li>";
                 }
                 ?>
