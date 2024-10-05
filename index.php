@@ -45,12 +45,14 @@
                 <svg
                     class="absolute inset-0 w-full h-full text-white"
                     style="filter: drop-shadow(10px 0 10px #00000030)"
+                    width="600px"
                     preserveAspectRatio="none"
                     viewBox="0 0 309 800"
                     fill="currentColor"
                     xmlns="">
                     <path
-                        d="M268.487 0H0V800H247.32C207.957 725 207.975 492.294 268.487 367.647C329 243 314.906 53.4314 268.487 0Z" />
+                        d="M268.487 0H0V800H247.32C207.957 725 207.975 492.294 268.487 367.647C329 243 314.906 53.4314 268.487 0Z"
+                        fill="rgba(20, 205, 200, 1)" />
                 </svg>
                 <!-- Sidebar content -->
                 <div class="z-10 flex flex-col flex-1">
@@ -59,11 +61,11 @@
                         <a href="#">
                             <div class="p-2.5 mt-1 flex items-center">
                                 <img src="assets/img/water-icon.gif" alt="" class="h-8 w-8 rounded-full">
-                                <h1 class="font-bold text-black text-[15px] ml-3">SI | Monitoring Air </h1>
+                                <h1 class="font-bold text-white text-[15px] ml-3 pr-8">SI | Monitoring Air </h1>
                             </div>
                         </a>
                         <!-- Close btn -->
-                        <button @click="isSidebarOpen = false" class="p-1 rounded-lg focus:outline-none focus:ring">
+                        <button @click="isSidebarOpen = false" class="pl-7 rounded-lg focus:outline-none focus:ring">
                             <svg
                                 class="w-6 h-6"
                                 aria-hidden="true"
@@ -77,26 +79,31 @@
                         </button>
                     </div>
 
-                    <nav class="flex flex-col flex-1 w-64 p-4 mt-4">
-                        <a href="index.php" class="flex items-center space-x-2">
-                            <img src="assets/img/home.png" alt="homepage" class="h-5 w-5 mb-1 ml-4">
-                            <span>Dashboard</span>
-
-                            <a href="#" class="flex items-center space-x-2 mt-5">
-                                <img src="assets/img/bar-chart.png" alt="user" class="h-5 w-5 mb-1 ml-4">
-                                <span>Line Chart</span>
-                            </a>
-                            <a href="#" class="flex items-center space-x-2 mt-5">
-                                <img src="assets/img/contract.png" alt="monitoring" class="h-5 w-5 mb-1 ml-4">
-                                <span>Data</span>
-                            </a>
-                            <a href="#" class="flex items-center space-x-2 mt-5">
-                                <img src="assets/img/setting.png" alt="monitoring" class="h-5 w-5 mb-1 ml-4">
-                                <span>Setting</span>
-                            </a>
+                    <nav class="flex flex-col flex-1 w-80 p-4 mt-4">
+                        <a href="index.php" class="flex items-center space-x-2 mt-5 pt-2 duration-30
+                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
+                                <img src="assets/img/home.png" alt="homepage" class="h-5 w-5 mb-1 ml-4">
+                                <span class="ml-7 text-xl -mt-1">Dashboard</span>
+                        </a>
+                        <a href="#" class="flex items-center space-x-2 mt-5  duration-30
+                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
+                            <img src="assets/img/bar-chart.png" alt="user" class="h-5 w-5 mb-1 ml-4">
+                            <span>Line Chart</span>
+                        </a>
+                        <a href="#" class="flex items-center space-x-2 mt-5  duration-30
+                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
+                            <img src="assets/img/contract.png" alt="monitoring" class="h-5 w-5 mb-1 ml-4">
+                            <span>Data</span>
+                        </a>
+                        <a href="#" class="flex items-center space-x-2 mt-5  duration-30
+                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
+                            <img src="assets/img/setting.png" alt="monitoring" class="h-5 w-5 mb-1 ml-4">
+                            <span>Setting</span>
+                        </a>
                     </nav>
-                    <div class="flex-shrink-0 p-4">
-                        <button class="flex items-center space-x-2">
+                    <div class="flex-shrink-0 p-4 w-80">
+                        <button class="flex items-center space-x-2 duration-30
+                            cursor pointer text-white hover:bg-red-500 hover:text-red-500 shadow-lg w-40">
                             <img src="assets/img/logout.png" alt="tombol logout" class="h-5 w-5 mb-1 ml-4">
                             <span>Logout</span>
                         </button>
@@ -118,11 +125,6 @@
                 </button>
 
                 <!-- Grafik TDS -->
-                <div class="container mt-10 text-center">
-                    <h3>Grafik TDS</h3>
-                    <p>(Data yang ditampilkan adalah 5 data terakhir)</p>
-                </div>
-
                 <div class="container w-1/3 text-center mt-5" id="responsecontainer">
                     <!-- Grafik data dari tds.php akan dimuat di sini -->
                 </div>

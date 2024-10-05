@@ -87,6 +87,10 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
 
 <body>
     <div>
+        <div class="container mt-10 text-center">
+            <h3>Grafik TDS</h3>
+            <p>(Data yang ditampilkan adalah 5 data terakhir)</p>
+        </div>
         <div class="flex flex-col items-center">
             <!-- Card start -->
             <div class="flex flex-row ">
@@ -157,7 +161,7 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
                                     easing: ''
                                 }
                             };
-                            
+
                             var mychart = new Chart(canvas, {
                                 type: 'line',
                                 data: tds,
