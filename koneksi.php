@@ -26,7 +26,7 @@ class Database
 
     public function waktu()
     {
-        $waktu = "SELECT `time` FROM iot ORDER BY id ASC";
+        $waktu = "SELECT `time` FROM iot ORDER BY id DESC";
         $output = $this->koneksi->query($waktu);
         return $output->fetch_all(MYSQLI_ASSOC);
     }
@@ -42,21 +42,21 @@ class Database
 
     public function tds()
     {
-        $tds = "SELECT tds FROM iot ORDER BY id ASC";
+        $tds = "SELECT tds FROM iot ORDER BY id DESC";
         $output = $this->koneksi->query($tds);
         return $output->fetch_all(MYSQLI_ASSOC);
     }
 
     public function ph()
     {    
-        $ph = "SELECT ph FROM iot ORDER BY id ASC";
+        $ph = "SELECT ph FROM iot ORDER BY id DESC";
         $output = $this->koneksi->query($ph);
         return $output->fetch_all(MYSQLI_ASSOC);
     }
 
     public function warna()
     {
-        $warna = "SELECT color FROM iot ORDER BY id ASC";
+        $warna = "SELECT color FROM iot ORDER BY id DESC";
         $output = $this->koneksi->query($warna);
         return $output->fetch_all(MYSQLI_ASSOC);
     }
