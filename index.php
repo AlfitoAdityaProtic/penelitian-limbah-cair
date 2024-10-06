@@ -89,7 +89,7 @@
                             <img src="assets/img/bar-chart.png" alt="user" class="h-5 w-5 mb-1 ml-4">
                             <span>Line Chart</span>
                         </a>
-                        <a href="#" class="flex items-center space-x-2 mt-5  duration-30
+                        <a href="data.php" class="flex items-center space-x-2 mt-5  duration-30
                             cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
                             <img src="assets/img/contract.png" alt="monitoring" class="h-5 w-5 mb-1 ml-4">
                             <span>Data</span>
