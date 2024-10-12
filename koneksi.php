@@ -5,7 +5,7 @@ class Database
     private $user = "abu";
     private $password = "akmal123";
     private $database = "iot";
-    protected $koneksi;
+    public $koneksi;
 
     public function __construct()
     {

@@ -40,7 +40,7 @@
                 x-transition:leave-start="translate-x-0"
                 x-transition:leave-end="-translate-x-full"
                 x-show="isSidebarOpen"
-                class="fixed inset-y-0 z-10 flex w-80">
+                class="fixed inset-y-0 z-10 flex w-96">
                 <!-- Curvy shape -->
                 <svg
                     class="absolute inset-0 w-full h-full text-white"
@@ -60,7 +60,7 @@
                         <a href="#">
                             <div class="p-2.5 mt-1 flex items-center">
                                 <img src="assets/img/water-icon.gif" alt="" class="h-8 w-8 rounded-full">
-                                <h1 class="font-bold text-white text-[15px] ml-3 pr-8">SI | Monitoring Air </h1>
+                                <h1 class="font-bold text-white text-[15px] ml-3 pr-8">Monitoring Air </h1>
                             </div>
                         </a>
                         <!-- Close btn -->
@@ -81,34 +81,35 @@
                     <nav class="flex flex-col flex-1 w-80 p-4 mt-4">
                         <a href="index.php" class="flex items-center space-x-2 mt-5 pt-2 duration-30
                             cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
-                            <img src="assets/img/home.png" alt="homepage" class="h-5 w-5 mb-1 ml-4">
-                            <span class="ml-7 text-xl -mt-1">Dashboard</span>
+                            <img src="assets/img/home.png" alt="homepage" class="h-6 w-6 mb-1 ml-4">
+                            <span>Dashboard</span>
                         </a>
-                        <a href="#" class="flex items-center space-x-2 mt-5  duration-30
+                        <!-- <a href="#" class="flex items-center space-x-2 mt-5  duration-30
                             cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
                             <img src="assets/img/bar-chart.png" alt="user" class="h-5 w-5 mb-1 ml-4">
                             <span>Line Chart</span>
-                        </a>
+                        </a> -->
                         <a href="data.php" class="flex items-center space-x-2 mt-5  duration-30
                             cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
-                            <img src="assets/img/contract.png" alt="monitoring" class="h-5 w-5 mb-1 ml-4">
+                            <img src="assets/img/contract.png" alt="monitoring" class="h-6 w-6 mb-1 ml-4">
                             <span>Data</span>
                         </a>
-                        <a href="#" class="flex items-center space-x-2 mt-5  duration-30
+                        <!-- <a href="#" class="flex items-center space-x-2 mt-5  duration-30
                             cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
                             <img src="assets/img/setting.png" alt="monitoring" class="h-5 w-5 mb-1 ml-4">
                             <span>Setting</span>
-                        </a>
+                        </a> -->
                     </nav>
-                    <div class="flex-shrink-0 p-4 w-80">
+                    <!-- <div class="flex-shrink-0 p-4 w-80">
                         <button class="flex items-center space-x-2 duration-30
                             cursor pointer text-white hover:bg-red-500 hover:text-red-500 shadow-lg w-40">
                             <img src="assets/img/logout.png" alt="tombol logout" class="h-5 w-5 mb-1 ml-4">
                             <span>Logout</span>
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
+            
             <main class="flex flex-col items-center justify-center flex-1">
                 <!-- Page content -->
                 <button @click="isSidebarOpen = true" class="fixed p-2 text-white bg-black rounded-lg top-5 left-5">
