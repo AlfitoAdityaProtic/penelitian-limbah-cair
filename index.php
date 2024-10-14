@@ -14,7 +14,7 @@
     <script type="text/javascript">
         var refreshid = setInterval(function() {
             $('#responsecontainer').load('tds.php');
-        }, 1000);
+        }, 2500);
     </script>
 
     <title>Grafik Sensor</title>
@@ -54,17 +54,17 @@
                         fill="rgba(20, 205, 200, 1)" />
                 </svg>
                 <!-- Sidebar content -->
-                <div class="z-10 flex flex-col flex-1">
-                    <div class="flex items-center justify-between flex-shrink-0 w-64 p-4">
+                <div class="z-10 flex flex-col flex-1 p-4"> 
+                    <div class="flex items-center flex-shrink-0 w-auto">
                         <!-- Logo -->
                         <a href="#">
-                            <div class="p-2.5 mt-1 flex items-center">
+                            <div class="p-1 mt-1 flex items-center">
                                 <img src="assets/img/water-icon.gif" alt="" class="h-8 w-8 rounded-full">
                                 <h1 class="font-bold text-white text-[15px] ml-3 pr-8">Monitoring Air </h1>
                             </div>
                         </a>
                         <!-- Close btn -->
-                        <button @click="isSidebarOpen = false" class="pl-7 rounded-lg focus:outline-none focus:ring">
+                        <button @click="isSidebarOpen = false" class="rounded-lg focus:outline-none focus:ring">
                             <svg
                                 class="w-6 h-6"
                                 aria-hidden="true"
@@ -80,7 +80,7 @@
 
                     <nav class="flex flex-col flex-1 w-80 p-4 mt-4">
                         <a href="index.php" class="flex items-center space-x-2 mt-5 pt-2 duration-30
-                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
+                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg rounded-lg">
                             <img src="assets/img/home.png" alt="homepage" class="h-6 w-6 mb-1 ml-4">
                             <span>Dashboard</span>
                         </a>
@@ -90,7 +90,7 @@
                             <span>Line Chart</span>
                         </a> -->
                         <a href="data.php" class="flex items-center space-x-2 mt-5  duration-30
-                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
+                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg rounded-lg">
                             <img src="assets/img/contract.png" alt="monitoring" class="h-6 w-6 mb-1 ml-4">
                             <span>Data</span>
                         </a>

@@ -700,8 +700,16 @@ video {
   left: 1.25rem;
 }
 
+.top-0 {
+  top: 0px;
+}
+
 .top-5 {
   top: 1.25rem;
+}
+
+.left-0 {
+  left: 0px;
 }
 
 .isolate {
@@ -718,14 +726,6 @@ video {
 
 .z-50 {
   z-index: 50;
-}
-
-.z-20 {
-  z-index: 20;
-}
-
-.z-auto {
-  z-index: auto;
 }
 
 .float-start {
@@ -780,8 +780,8 @@ video {
   margin: 1.25rem;
 }
 
-.-mt-1 {
-  margin-top: -0.25rem;
+.m-0 {
+  margin: 0px;
 }
 
 .mb-1 {
@@ -810,10 +810,6 @@ video {
 
 .ml-4 {
   margin-left: 1rem;
-}
-
-.ml-7 {
-  margin-left: 1.75rem;
 }
 
 .mt-1 {
@@ -955,14 +951,6 @@ video {
   height: 100vh;
 }
 
-.h-7 {
-  height: 1.75rem;
-}
-
-.h-9 {
-  height: 2.25rem;
-}
-
 .max-h-\[250px\] {
   max-height: 250px;
 }
@@ -995,6 +983,10 @@ video {
   width: 20rem;
 }
 
+.w-96 {
+  width: 24rem;
+}
+
 .w-\[500px\] {
   width: 500px;
 }
@@ -1019,20 +1011,16 @@ video {
   width: 100%;
 }
 
-.w-96 {
-  width: 24rem;
+.w-auto {
+  width: auto;
 }
 
-.\!w-96 {
-  width: 24rem !important;
+.w-\[60\%\] {
+  width: 60%;
 }
 
-.w-7 {
-  width: 1.75rem;
-}
-
-.w-9 {
-  width: 2.25rem;
+.w-\[70\%\] {
+  width: 70%;
 }
 
 .min-w-full {
@@ -1119,6 +1107,10 @@ video {
 
 .transform-none {
   transform: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .touch-auto {
@@ -1643,6 +1635,11 @@ video {
   border-style: none;
 }
 
+.divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-divide-opacity));
+}
+
 .place-self-auto {
   place-self: auto;
 }
@@ -2076,6 +2073,11 @@ video {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
+.bg-teal-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(20 184 166 / var(--tw-bg-opacity));
+}
+
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -2215,12 +2217,8 @@ video {
   padding: 2rem;
 }
 
-.p-5 {
-  padding: 1.25rem;
-}
-
-.p-3 {
-  padding: 0.75rem;
+.p-0 {
+  padding: 0px;
 }
 
 .px-1 {
@@ -2258,6 +2256,10 @@ video {
 
 .pr-4 {
   padding-right: 1rem;
+}
+
+.pr-5 {
+  padding-right: 1.25rem;
 }
 
 .pr-8 {
@@ -2433,6 +2435,10 @@ video {
 
 .tracking-tight {
   letter-spacing: -0.025em;
+}
+
+.tracking-wider {
+  letter-spacing: 0.05em;
 }
 
 .text-\[\#336699\]\/\[\.35\] {
@@ -2966,6 +2972,10 @@ video {
 }
 
 @media (min-width: 768px) {
+  .md\:w-auto {
+    width: auto;
+  }
+
   .md\:flex-row {
     flex-direction: row;
   }

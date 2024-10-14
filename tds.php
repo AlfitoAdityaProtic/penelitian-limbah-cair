@@ -224,18 +224,18 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
 
     <!-- Tampilan warna -->
     <div class="panel panel-warning shadow-lg rounded-lg">
-        <div class="panel-heading p-4 text-xl font-bold border-b border-yellow-300 font-custom">
+        <div class="panel-heading p-4 text-xl font-bold border-b border-yellow-300 font-custom text-center">
             Warna Air
         </div>
         <div class="panel-body p-4">
-            <ul class="space-y-3">
+            <ul class="space-y-3 flex flex-col items-center">
                 <?php
                 foreach ($warna as $data_warna) {
                     $hexColor = htmlspecialchars($data_warna['color']); 
                     if (strpos($hexColor, '#') !== 0) {
                         $hexColor = '#' . $hexColor;
                     }
-                    echo "<li style='list-style:none;' class='flex items-center justify-center gap-5 ml-10'>
+                    echo "<li style='list-style:none;' class='flex items-center justify-center gap-5'>
                         <div class='flex items-center' style='width: 100px; height: 25px;  background-color: $hexColor; border: 1px solid #000;'>
                         </div>
                         <span class='font-medium text-md'>$hexColor</span> <!-- Menampilkan kode warna untuk referensi -->
