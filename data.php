@@ -86,29 +86,12 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
                             <img src="assets/img/home.png" alt="homepage" class="h-6 w-6 mb-1 ml-4">
                             <span>Dashboard</span>
                         </a>
-                        <!-- <a href="#" class="flex items-center space-x-2 mt-5  duration-30
-                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
-                            <img src="assets/img/bar-chart.png" alt="user" class="h-5 w-5 mb-1 ml-4">
-                            <span>Line Chart</span>
-                        </a> -->
                         <a href="data.php" class="flex items-center space-x-2 mt-5  duration-30
                             cursor pointer text-white hover:bg-white rounded-lg hover:text-black shadow-lg">
                             <img src="assets/img/contract.png" alt="monitoring" class="h-6 w-6 mb-1 ml-4">
                             <span>Data</span>
                         </a>
-                        <!-- <a href="#" class="flex items-center space-x-2 mt-5  duration-30
-                            cursor pointer text-white hover:bg-white hover:text-black shadow-lg">
-                            <img src="assets/img/setting.png" alt="monitoring" class="h-5 w-5 mb-1 ml-4">
-                            <span>Setting</span>
-                        </a> -->
                     </nav>
-                    <!-- <div class="flex-shrink-0 p-4 w-80">
-                        <button class="flex items-center space-x-2 duration-30
-                            cursor pointer text-white hover:bg-red-500 hover:text-red-500 shadow-lg w-40">
-                            <img src="assets/img/logout.png" alt="tombol logout" class="h-5 w-5 mb-1 ml-4">
-                            <span>Logout</span>
-                        </button>
-                    </div> -->
                 </div>
             </div>
 
@@ -142,14 +125,9 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
                         <tbody class="text-center">
                             <?php
                             for ($i = 0; $i < count($waktu); $i++) {
-                                // Ambil warna dari data
-                                $warnaHex = htmlspecialchars($warna[$i]['color']);
-                                $backgroundColor = $warnaHex;
-
-                                // Tambahkan tanda '#' di depan nilai warna jika tidak ada
-                                if ($warnaHex[0] !== '#') {
-                                    $backgroundColor = '#' . $warnaHex;
-                                }
+                                // Cek apakah warna ada dan valid, jika tidak gunakan warna default
+                                $warnaHex = isset($warna[$i]['color']) && !empty($warna[$i]['color']) ? htmlspecialchars($warna[$i]['color']) : '#FFFFFF';
+                                $backgroundColor = (strpos($warnaHex, '#') === 0) ? $warnaHex : "#$warnaHex";
 
                                 echo "<tr class='border-b hover:bg-gray-100 transition duration-200 ease-in-out bg-white text-center'>";
                                 echo "<td class='py-3 px-4 text-center'>" . ($i + 1) . "</td>";
@@ -157,11 +135,8 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
                                 echo "<td class='py-3 px-4 text-center'>" . htmlspecialchars($tds[$i]['tds']) . " ppa</td>";
                                 echo "<td class='py-3 px-4 text-center'>" . htmlspecialchars($ph[$i]['ph']) . "</td>";
 
-                                // Tentukan warna teks berdasarkan kecerahan latar belakang
-                                $textColor = (hexdec(substr($backgroundColor, 1, 2)) * 0.299 + hexdec(substr($backgroundColor, 3, 2)) * 0.587 + hexdec(substr($backgroundColor, 5, 2)) * 0.114) > 186 ? '#000000' : '#ffffff';
-
                                 // Tampilkan sel dengan latar belakang warna dan warna teks yang sesuai
-                                echo "<td class='py-3 px-6 rounded-full text-center' style='background-color: {$backgroundColor}; color: {$textColor};'>" . $backgroundColor . "</td>";
+                                echo "<td class='py-3 px-6 rounded-full text-center' style='background-color: {$backgroundColor};'>" . $backgroundColor . "</td>";
                                 echo "</tr>";
                             }
                             ?>
@@ -183,7 +158,6 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
             }
         }
     </script>
-
 </body>
 
 </html>

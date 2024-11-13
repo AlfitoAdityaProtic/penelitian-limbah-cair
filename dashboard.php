@@ -21,7 +21,7 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
 <body>
 
 <h2 class="mt-5 justify-end items-end text-3xl font-bold text-gray-800 border-b-2 border-yellow-500 pb-2 mb-4">
-    Laman Dashboard Monitoring Limbah Cair
+    Laman Dashboard
 </h2>
 
 <div class="flex flex-col items-center">
