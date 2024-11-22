@@ -135,7 +135,7 @@
     </div>
     <!-- sidebar end -->
 
-    <script src="./node_modules/alpinejs/dist/cdn.min.js" defer></script>
+    <script src="assets/js/alpine.min.js" defer></script>
     <script>
         const setup = () => {
             return {
