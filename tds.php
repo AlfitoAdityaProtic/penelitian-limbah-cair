@@ -2,15 +2,20 @@
 // bikin koneksi duls
 class database
 {
-    private $host = "160.19.166.42";
-    private $user = "abu";
-    private $password = "akmal123";
-    private $database = "iot";
+    private $host;
+    private $user;
+    private $password;
+    private $database;
     protected $koneksi;
 
     // Membuat koneksi
     public function __construct()
     {
+        $this->host = getenv("DB_HOST") ?: "160.19.166.42";
+        $this->user = getenv("DB_USER") ?: "abu";
+        $this->password = getenv("DB_PASS") ?: "akmal123";
+        $this->database = getenv("DB_NAME") ?: "iot";
+
         $this->koneksi = new mysqli($this->host, $this->user, $this->password, $this->database);
         if ($this->koneksi->connect_error) {
             die("Koneksi gagal: " . $this->koneksi->connect_error);
@@ -64,7 +69,7 @@ class database
     public function warna()
     {
         list($ID_Awal, $ID_Akhir) = $this->getIDRange();
-        $warna = "SELECT color FROM iot WHERE ID>='$ID_Awal' AND ID<='$ID_Akhir' ORDER BY id ASC";
+        $warna = "SELECT color FROM iot WHERE ID>='$ID_Awal' AND ID<='$ID_Akhir' ORDER BY id ASC LIMIT 100";
         $output = $this->koneksi->query($warna);
         return $output->fetch_all(MYSQLI_ASSOC);
     }

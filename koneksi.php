@@ -1,14 +1,19 @@
 <?php
 class Database
 {
-    private $host = getenv("DB_HOST") ?? "160.19.166.42";
-    private $user = getenv("DB_USER") ?? "abu";
-    private $password = getenv("DB_PASS") ?? "akmal123";
-    private $database = getenv("DB_NAME") ?? "iot";
+    private $host;
+    private $user;
+    private $password;
+    private $database;
     public $koneksi;
 
     public function __construct()
     {
+        $this->host = getenv("DB_HOST") ?: "160.19.166.42";
+        $this->user = getenv("DB_USER") ?: "abu";
+        $this->password = getenv("DB_PASS") ?: "akmal123";
+        $this->database = getenv("DB_NAME") ?: "iot";
+
         $this->koneksi = new mysqli($this->host, $this->user, $this->password, $this->database);
         if ($this->koneksi->connect_error) {
             die("Koneksi gagal: " . $this->koneksi->connect_error);
