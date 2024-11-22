@@ -1,10 +1,10 @@
 <?php
 class Database
 {
-    private $host = "160.19.166.42";
-    private $user = "abu";
-    private $password = "akmal123";
-    private $database = "iot";
+    private $host = getenv("DB_HOST") ?? "160.19.166.42";
+    private $user = getenv("DB_USER") ?? "abu";
+    private $password = getenv("DB_PASS") ?? "akmal123";
+    private $database = getenv("DB_NAME") ?? "iot";
     public $koneksi;
 
     public function __construct()
