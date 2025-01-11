@@ -1,88 +1,7 @@
 <?php
-// bikin koneksi duls
-class database
-{
-    private $host;
-    private $user;
-    private $password;
-    private $database;
-    protected $koneksi;
+require_once('koneksi.php');
 
-    // Membuat koneksi
-    public function __construct()
-    {
-        $this->host = getenv("DB_HOST") ?: "160.19.166.42";
-        $this->user = getenv("DB_USER") ?: "abu";
-        $this->password = getenv("DB_PASS") ?: "akmal123";
-        $this->database = getenv("DB_NAME") ?: "iot";
-
-        $this->koneksi = new mysqli($this->host, $this->user, $this->password, $this->database);
-        if ($this->koneksi->connect_error) {
-            die("Koneksi gagal: " . $this->koneksi->connect_error);
-        }
-    }
-    public function getIDRange(): array
-    {
-        $sql_ID = $this->koneksi->query(query: "SELECT MAX(id) FROM iot");
-        $data_Id = mysqli_fetch_array(result: $sql_ID);
-        $ID_Akhir = $data_Id['MAX(id)'];
-        $ID_Awal = $ID_Akhir - 4;
-        return [$ID_Awal, $ID_Akhir];
-    }
-
-    // Fungsi untuk waktu
-    public function waktu()
-    {
-        list($ID_Awal, $ID_Akhir) = $this->getIDRange();
-        $waktu = "SELECT `time` FROM iot WHERE ID>='$ID_Awal' AND ID<='$ID_Akhir' ORDER BY id ASC";
-        $output = $this->koneksi->query($waktu);
-        return $output->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function dataTerakhir()
-    {
-        $tdsTerakhir = $this->koneksi->query("SELECT tds FROM iot ORDER BY id DESC LIMIT 1")->fetch_assoc()['tds'];
-        $phTerakhir = $this->koneksi->query("SELECT ph FROM iot ORDER BY id DESC LIMIT 1")->fetch_assoc()['ph'];
-        $warnaTerakhir = $this->koneksi->query("SELECT color FROM iot ORDER BY id DESC LIMIT 1")->fetch_assoc()['color'];
-
-        return [$tdsTerakhir, $phTerakhir, $warnaTerakhir];
-    }
-    // ini sumbu y nya tds
-    public function tds()
-    {
-        list($ID_Awal, $ID_Akhir) = $this->getIDRange();
-        $tds = "SELECT tds FROM iot WHERE ID>='$ID_Awal' AND ID<='$ID_Akhir' ORDER BY id ASC";
-        $output = $this->koneksi->query($tds);
-        return $output->fetch_all(MYSQLI_ASSOC);
-    }
-
-    // Fungsi untuk PH
-    public function ph()
-    {
-        list($ID_Awal, $ID_Akhir) = $this->getIDRange();
-        $ph = "SELECT ph FROM iot WHERE ID>='$ID_Awal' AND ID<='$ID_Akhir' ORDER BY id ASC";
-        $output = $this->koneksi->query($ph);
-        return $output->fetch_all(MYSQLI_ASSOC);
-    }
-
-    // Fungsi untuk Warna
-    public function warna()
-    {
-        list($ID_Awal, $ID_Akhir) = $this->getIDRange();
-        $warna = "SELECT color FROM iot WHERE ID>='$ID_Awal' AND ID<='$ID_Akhir' ORDER BY id ASC LIMIT 100";
-        $output = $this->koneksi->query($warna);
-        return $output->fetch_all(MYSQLI_ASSOC);
-    }
-    // Tambahkan fungsi untuk mendapatkan nilai terakhir
-
-
-    public function __destruct()
-    {
-        $this->koneksi->close();
-    }
-}
-
-$db = new database();
+$db = new Database();
 $waktu = $db->waktu();
 $tds = $db->tds();
 $ph = $db->ph();
@@ -92,27 +11,27 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
 
 <body>
     <!-- <div class="flex container justify-end items-end mt-4 pr-4"></div> -->
-        <h2 class="mt-5 justify-end items-end text-3xl font-bold text-gray-800 border-b-2 border-yellow-500 pb-2 mb-4">
-            Laman Dashboard Monitoring Limbah Cair
-        </h2>
-    
+    <h2 class="mt-32 md:mt-5 justify-end items-end text-3xl font-bold text-gray-800 border-b-2 border-yellow-500 pb-2 mb-4">
+        Laman Dashboard Monitoring Limbah Cair
+    </h2>
+
     <div class="flex flex-col items-center">
         <!-- Card start -->
-        <div class="flex flex-row md:flex-row">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Card TDS -->
-            <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10">
+            <div class="p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">TDS</h5>
                 <p class="font-normal text-gray-700 dark:text-gray-400">
                     <?php echo $tdsTerakhir; ?> ppa
                 </p>
             </div>
             <!-- Card PH -->
-            <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10">
+            <div class="p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">PH Air</h5>
                 <p class="font-normal text-gray-700 dark:text-gray-400"><?php echo $phTerakhir; ?></p>
             </div>
             <!-- Card Warna -->
-            <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10">
+            <div class="p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Warna</h5>
                 <p class="font-normal text-gray-700 dark:text-gray-400"><?php echo $warnaTerakhir; ?></p>
             </div>
@@ -123,12 +42,12 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
         <!-- Container untuk Grafik -->
         <div class="flex flex-col items-center md:flex-row justify-center gap-5 w-full">
             <!-- Grafik TDS -->
-            <div class="panel panel-primary m-5 w-[500px] shadow-lg">
+            <div class="panel panel-primary m-5 shadow-lg">
                 <div class="panel-heading font-custom">
                     Grafik TDS (Total Dissolved Solids)
                 </div>
                 <div class="panel-body">
-                    <canvas id="mychart" width="500" height="250"></canvas>
+                    <canvas id="mychart" width="500"></canvas>
                     <script type="text/javascript">
                         var canvas = document.getElementById('mychart');
                         var tds = {
@@ -176,12 +95,12 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
             </div>
 
             <!-- Grafik PH -->
-            <div class="panel panel-danger m-5 w-[500px] shadow-lg">
+            <div class="panel panel-danger m-5 shadow-lg">
                 <div class="panel-heading font-custom">
                     Grafik PH AIR
                 </div>
                 <div class="panel-body">
-                    <canvas id="mychart2" width="500" height="250"></canvas>
+                    <canvas id="mychart2" width="500"></canvas>
                     <script type="text/javascript">
                         var canvas = document.getElementById('mychart2');
                         var ph = {
@@ -236,14 +155,14 @@ list($tdsTerakhir, $phTerakhir, $warnaTerakhir) = $db->dataTerakhir();
             <ul class="space-y-3 flex flex-col items-center">
                 <?php
                 foreach ($warna as $data_warna) {
-                    $hexColor = htmlspecialchars($data_warna['color']); 
+                    $hexColor = htmlspecialchars($data_warna['color']);
                     if (strpos($hexColor, '#') !== 0) {
                         $hexColor = '#' . $hexColor;
                     }
                     echo "<li style='list-style:none;' class='flex items-center justify-center gap-5'>
-                        <div class='flex items-center' style='width: 100px; height: 25px;  background-color: $hexColor; border: 1px solid #000;'>
+                        <div class='flex items-center justify-center' style='width: 200px; height: 32px; background-color: $hexColor; border: 1px solid #000;'>
+                        <span class='font-medium text-md'>$hexColor</span>
                         </div>
-                        <span class='font-medium text-md'>$hexColor</span> <!-- Menampilkan kode warna untuk referensi -->
                       </li>";
                 }
                 ?>
